@@ -37,7 +37,7 @@ bool Node::isRoot() {
 
 string Node::getCode() {
     if(this->isRoot()) return "";
-    string thisCode(1, this->character);
+    string thisCode = parent->leftChild == this ? "1" : "0";
     return parent->getCode() + thisCode;
 }
 
