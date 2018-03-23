@@ -1,17 +1,50 @@
 #include <iostream>
+#include <fstream>
 #include "HuffmanTree.h"
+#include "BitWriter.h"
 
 using namespace std;
 
+void compress(const string &sourceFile);
+
 int main() {
 
-    long frequencies[256];
-
-    frequencies[0] = 3;
-    frequencies[1] = 1;
-    frequencies[2] = 6;
-
-    HuffmanTree* tree = buildHuffmanTree(frequencies);
+    compress("main.txt");
 
     return 0;
+}
+
+void compress(const string &sourceFile) {
+
+    // frequency and totalBytes declaration
+    long frequencies[256];
+    for (long &frequency : frequencies) frequency = 0;
+    long totalBytes = 0;
+
+    ifstream inFile(sourceFile, ifstream::in);
+
+    // read file frequency and total bytes
+    while(inFile.good()) {
+        frequencies[inFile.get()]++;
+        totalBytes++;
+    }
+
+    // return to begin of inFile
+    inFile.clear();
+    inFile.seekg(0, inFile.beg);
+
+    // output file
+    BitWriter writer(sourceFile + ".huff");
+
+    // file compression
+    while(totalBytes-- > 1) {
+        HuffmanTree* tree = buildHuffmanTree(frequencies);
+        int value = inFile.get(); // get char value from file
+        string code = tree->leafPointers[value]->getCode();
+        writer.writeCode(code);
+        frequencies[value]--;
+    }
+    inFile.close();
+    writer.close();
+
 }
