@@ -38,7 +38,7 @@ bool Node::isRoot() {
 string Node::getCode() {
     if(this->isRoot()) return "";
     string thisCode(1, this->character);
-    return thisCode + parent->getCode();
+    return parent->getCode() + thisCode;
 }
 
 void Node::destroy(Node *node) {
