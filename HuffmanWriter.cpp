@@ -7,7 +7,7 @@
 HuffmanWriter::HuffmanWriter(string fileName, long (&frequencies)[256]) :
         file(fileName, ofstream::binary), buffer(0), bitCount(0) {
 
-    for(auto& frequency : frequencies) file << frequency;
+    file.write((char*) &frequencies, sizeof(long) * 256);
 
 }
 
