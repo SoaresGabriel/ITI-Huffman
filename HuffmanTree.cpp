@@ -18,7 +18,7 @@ struct compare {
     }
 };
 
-Node* buildHuffmanTree(vector<long> frequencies) {
+Node* buildHuffmanTree(long frequencies[256]) {
     priority_queue<NodeFrequency*, vector<NodeFrequency*>, compare> priorityQueue;
 
     for(int i = 0; i < 256; i++) {
@@ -32,11 +32,14 @@ Node* buildHuffmanTree(vector<long> frequencies) {
     while(priorityQueue.size() > 1) {
         NodeFrequency* item1 = priorityQueue.top();
         priorityQueue.pop();
+
         NodeFrequency* item2 = priorityQueue.top();
         priorityQueue.pop();
+
         auto newNode = new Node(item1->node, item2->node);
         auto nodeFrequency = new NodeFrequency(newNode, (item1->frequency) + (item2->frequency));
         priorityQueue.push(nodeFrequency);
+
         delete item1;
         delete item2;
     }

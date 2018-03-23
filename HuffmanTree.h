@@ -5,9 +5,8 @@
 #ifndef HUFFMAN_HUFFMANTREE_H
 #define HUFFMAN_HUFFMANTREE_H
 
-#include <vector>
 #include "Node.h"
 
-Node* buildHuffmanTree(vector<long> frequencies);
+Node* buildHuffmanTree(long frequencies[256]);
 
 #endif //HUFFMAN_HUFFMANTREE_H
