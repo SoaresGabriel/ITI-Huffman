@@ -9,7 +9,13 @@ void compress(const string &sourceFile);
 
 int main() {
 
-    compress("main.txt");
+    clock_t initialTime = clock(), finalTime;
+
+    compress("test.txt");
+
+    finalTime = clock();
+    long executionTime = ((finalTime - initialTime) / (CLOCKS_PER_SEC / 1000));
+    cout << "t: " << executionTime << " ms" << endl;
 
     return 0;
 }
