@@ -10,13 +10,13 @@
 
 using namespace std;
 
-class BitWriter {
+class HuffmanWriter {
 private:
     char buffer;
     short bitCount;
     ofstream file;
 public:
-    explicit BitWriter(string fileName);
+    HuffmanWriter(string fileName, long (&frequencies)[256]);
 
     void writeBit(bool bit);
 

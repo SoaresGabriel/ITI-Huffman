@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "HuffmanTree.h"
-#include "BitWriter.h"
+#include "HuffmanWriter.h"
 
 using namespace std;
 
@@ -44,7 +44,7 @@ void compress(const string &sourceFile) {
     inFile.seekg(0, inFile.beg);
 
     // output file
-    BitWriter writer(sourceFile + ".huff");
+    HuffmanWriter writer(sourceFile + ".huff", frequencies);
 
     // file compression
     while(totalBytes-- > 1) {
