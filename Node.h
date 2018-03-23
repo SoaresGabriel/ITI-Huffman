@@ -13,7 +13,7 @@ using namespace std;
 class Node {
 public:
     Node(Node* leftChild, Node* rightChild);
-    Node(Node* parent, unsigned char character); // leaf
+    explicit Node(unsigned char character); // leaf
     ~Node();
 
     Node* parent;

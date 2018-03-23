@@ -10,10 +10,15 @@ Node::Node(Node* leftChild, Node* rightChild) :
         parent(nullptr),
         leftChild(leftChild),
         rightChild(rightChild),
-        character(0){}
+        character(0) {
 
-Node::Node(Node* parent, unsigned char character) :
-        parent(parent),
+    leftChild->parent = this;
+    rightChild->parent = this;
+
+}
+
+Node::Node(unsigned char character) :
+        parent(nullptr),
         leftChild(nullptr),
         rightChild(nullptr),
         character(character) {}
