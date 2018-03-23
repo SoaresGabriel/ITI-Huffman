@@ -11,7 +11,7 @@ int main() {
     frequencies[1] = 1;
     frequencies[2] = 6;
 
-    Node* tree = buildHuffmanTree(frequencies);
+    HuffmanTree* tree = buildHuffmanTree(frequencies);
 
     return 0;
 }

@@ -7,6 +7,12 @@
 
 #include "Node.h"
 
-Node* buildHuffmanTree(long frequencies[256]);
+struct HuffmanTree {
+    Node* root;
+    Node* leafPointers[256];
+    ~HuffmanTree();
+};
+
+HuffmanTree* buildHuffmanTree(long frequencies[256]);
 
 #endif //HUFFMAN_HUFFMANTREE_H

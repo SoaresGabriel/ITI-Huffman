@@ -5,7 +5,12 @@
 #include <queue>
 #include "HuffmanTree.h"
 
-typedef struct NodeFrequency {
+HuffmanTree::~HuffmanTree() {
+    delete root;
+    delete[] leafPointers;
+}
+
+struct NodeFrequency {
     Node* node;
     long frequency;
 
@@ -18,12 +23,17 @@ struct compare {
     }
 };
 
-Node* buildHuffmanTree(long frequencies[256]) {
+HuffmanTree* buildHuffmanTree(long frequencies[256]) {
     priority_queue<NodeFrequency*, vector<NodeFrequency*>, compare> priorityQueue;
+
+    auto tree = new HuffmanTree();
 
     for(int i = 0; i < 256; i++) {
         if(frequencies[i] > 0) {
             auto node = new Node((unsigned char)i);
+
+            tree->leafPointers[i] = node;
+
             auto nodeFrequency = new NodeFrequency(node, frequencies[i]);
             priorityQueue.push(nodeFrequency);
         }
@@ -48,7 +58,7 @@ Node* buildHuffmanTree(long frequencies[256]) {
 
     priorityQueue.pop();
 
-    Node* tree = last->node;
+    tree->root = last->node;
 
     delete last;
 
