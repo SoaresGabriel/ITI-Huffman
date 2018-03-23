@@ -6,16 +6,12 @@
 
 BitWriter::BitWriter(string fileName) : file(fileName, ofstream::binary), buffer(0), bitCount(0) {}
 
-void BitWriter::writeInFile() {
-    file.write(&buffer, 1);
-}
-
 void BitWriter::writeBit(bool bit) {
     buffer = ((buffer << 1) | bit);
     bitCount++;
 
     if(bitCount == 8){
-        writeInFile();
+        file.put(buffer);
         bitCount = 0;
     }
 }
@@ -27,7 +23,7 @@ void BitWriter::writeCode(string& code) {
 void BitWriter::close() {
     if(bitCount > 0) {
         buffer = (buffer << 8 - bitCount);
-        writeInFile();
+        file.put(buffer);
     }
     file.close();
 }

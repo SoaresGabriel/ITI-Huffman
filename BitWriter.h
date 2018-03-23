@@ -15,8 +15,6 @@ private:
     char buffer;
     short bitCount;
     ofstream file;
-
-    void writeInFile();
 public:
     explicit BitWriter(string fileName);
 
