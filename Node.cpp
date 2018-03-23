@@ -24,7 +24,8 @@ Node::Node(unsigned char character) :
         character(character) {}
 
 Node::~Node() {
-    destroy(this);
+    delete leftChild;
+    delete rightChild;
 }
 
 bool Node::isLeaf() {
@@ -39,12 +40,4 @@ string Node::getCode() {
     if(this->isRoot()) return "";
     string thisCode = parent->leftChild == this ? "1" : "0";
     return parent->getCode() + thisCode;
-}
-
-void Node::destroy(Node *node) {
-    if(!node->isLeaf()) {
-        destroy(node->leftChild);
-        destroy(node->rightChild);
-    }
-    delete node;
 }

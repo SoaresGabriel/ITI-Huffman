@@ -7,7 +7,6 @@
 
 HuffmanTree::~HuffmanTree() {
     delete root;
-    delete[] leafPointers;
 }
 
 struct NodeFrequency {

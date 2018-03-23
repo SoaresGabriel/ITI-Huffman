@@ -25,9 +25,6 @@ public:
     bool isLeaf();
 
     string getCode();
-
-private:
-    static void destroy(Node* node);
 };
 
 
