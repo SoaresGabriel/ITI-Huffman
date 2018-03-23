@@ -23,6 +23,10 @@ void compress(const string &sourceFile) {
 
     ifstream inFile(sourceFile, ifstream::in);
 
+    if(!inFile.good()) {
+        cout << "Falha ao abrir o arquivo" << endl;
+    }
+
     // read file frequency and total bytes
     while(inFile.good()) {
         frequencies[inFile.get()]++;
@@ -43,6 +47,7 @@ void compress(const string &sourceFile) {
         string code = tree->leafPointers[value]->getCode();
         writer.writeCode(code);
         frequencies[value]--;
+        delete tree;
     }
     inFile.close();
     writer.close();
