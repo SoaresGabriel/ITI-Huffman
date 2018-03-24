@@ -11,7 +11,7 @@ using namespace std;
 
 class HuffmanReader {
 private:
-    char buffer;
+    unsigned char buffer;
     short bitCount;
     ifstream file;
 

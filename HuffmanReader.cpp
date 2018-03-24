@@ -18,7 +18,7 @@ HuffmanReader::HuffmanReader(string fileName) :
 
 bool HuffmanReader::getBit() {
     if(bitCount == 0) {
-        file >> buffer;
+        buffer = (unsigned char) file.get();
         bitCount = 7;
     } else {
         bitCount--;

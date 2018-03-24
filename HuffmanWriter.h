@@ -12,7 +12,7 @@ using namespace std;
 
 class HuffmanWriter {
 private:
-    char buffer;
+    unsigned char buffer;
     short bitCount;
     ofstream file;
 public:
