@@ -27,10 +27,6 @@ bool HuffmanReader::getBit() {
     return (bool) ((buffer >> bitCount) & 1);
 }
 
-bool HuffmanReader::hasBit() {
-    return file.good() || bitCount > 0;
-}
-
 void HuffmanReader::close() {
     file.close();
 }

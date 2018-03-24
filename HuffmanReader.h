@@ -22,8 +22,6 @@ public:
 
     bool getBit();
 
-    bool hasBit();
-
     void close();
 };
 
