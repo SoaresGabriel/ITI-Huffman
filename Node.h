@@ -24,6 +24,8 @@ public:
     bool isRoot();
     bool isLeaf();
 
+    Node* getChild(bool witch);
+
     string getCode();
 };
 

@@ -41,3 +41,7 @@ string Node::getCode() {
     string thisCode = parent->leftChild == this ? "1" : "0";
     return parent->getCode() + thisCode;
 }
+
+Node *Node::getChild(bool witch) {
+    return witch ? this->leftChild : this->rightChild;
+}
