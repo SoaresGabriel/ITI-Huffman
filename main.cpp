@@ -13,7 +13,14 @@ int main(int argc, char** argv) {
 
     clock_t initialTime = clock(), finalTime;
 
-    // calls compress or decompress
+    if (argc != 3 || argv[1][0] != '-' || (argv[1][1] != 'c' && argv[1][1] != 'd')) {
+        cout << "Arguments: [-c|-d] arquivo" << endl;
+        exit(1);
+    } else if (argv[1][1] == 'c') {
+        compress(argv[2]);
+    } else if (argv[1][1] == 'd') {
+        decompress(argv[2]);
+    }
 
     finalTime = clock();
     long executionTime = ((finalTime - initialTime) / (CLOCKS_PER_SEC / 1000));
@@ -71,7 +78,12 @@ void compress(const string &sourceFile) {
 }
 
 void decompress(const string &sourceFile) {
-    string outFileName = sourceFile.substr(0, sourceFile.find_last_of('.')) + "2";
+    if(sourceFile.size() <= 5 || sourceFile.substr(sourceFile.find_last_of('.')) != ".huff") {
+        cout << "Arquivo comprimido precisa ter a extensão .huff!" << endl;
+        exit(1);
+    }
+
+    string outFileName = sourceFile.substr(0, sourceFile.find_last_of('.'));
 
     HuffmanReader reader(sourceFile);
     ofstream outFile(outFileName, ofstream::binary);
