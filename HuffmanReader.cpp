@@ -13,7 +13,7 @@ HuffmanReader::HuffmanReader(string fileName) :
         exit(1);
     }
 
-    file.read((char*) &frequencies, sizeof(long) * 256);
+    file.read((char*) &frequencies, sizeof(unsigned long) * 256);
 }
 
 bool HuffmanReader::getBit() {

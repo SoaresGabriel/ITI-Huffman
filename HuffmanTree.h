@@ -13,6 +13,6 @@ struct HuffmanTree {
     ~HuffmanTree();
 };
 
-HuffmanTree* buildHuffmanTree(long frequencies[256]);
+HuffmanTree* buildHuffmanTree(unsigned long frequencies[256]);
 
 #endif //HUFFMAN_HUFFMANTREE_H

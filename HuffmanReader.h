@@ -16,7 +16,7 @@ private:
     ifstream file;
 
 public:
-    long frequencies[256];
+    unsigned long frequencies[256];
 
     explicit HuffmanReader(string fileName);
 

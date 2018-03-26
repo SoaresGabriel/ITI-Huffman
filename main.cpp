@@ -32,10 +32,10 @@ int main(int argc, char** argv) {
 void compress(const string &sourceFile) {
 
     // frequency and totalBytes declaration
-    long frequencies[256];
-    for (long &frequency : frequencies) frequency = 0;
+    unsigned long frequencies[256];
+    for (unsigned long &frequency : frequencies) frequency = 0;
 
-    long totalSymbols = 0;
+    unsigned long totalSymbols = 0;
 
     ifstream inFile(sourceFile, ifstream::in);
 
@@ -88,7 +88,7 @@ void decompress(const string &sourceFile) {
     HuffmanReader reader(sourceFile);
     ofstream outFile(outFileName, ofstream::binary);
 
-    long (&frequencies)[256] = reader.frequencies;
+    unsigned long (&frequencies)[256] = reader.frequencies;
     short totalSymbols = 0;
 
     // count number of different symbols in the source file

@@ -11,9 +11,9 @@ HuffmanTree::~HuffmanTree() {
 
 struct NodeFrequency {
     Node* node;
-    long frequency;
+    unsigned long frequency;
 
-    NodeFrequency(Node* node, long frequency): node(node), frequency(frequency) {}
+    NodeFrequency(Node* node, unsigned long frequency): node(node), frequency(frequency) {}
 };
 
 struct compare {
@@ -22,7 +22,7 @@ struct compare {
     }
 };
 
-HuffmanTree* buildHuffmanTree(long frequencies[256]) {
+HuffmanTree* buildHuffmanTree(unsigned long frequencies[256]) {
     priority_queue<NodeFrequency*, vector<NodeFrequency*>, compare> priorityQueue;
 
     auto tree = new HuffmanTree();
