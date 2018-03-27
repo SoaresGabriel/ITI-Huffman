@@ -14,6 +14,7 @@ HuffmanReader::HuffmanReader(string fileName) :
     }
 
     file.read((char*) &frequencies, sizeof(unsigned long) * 256);
+    file.read((char*) &bytesPerTree, sizeof(int));
 }
 
 bool HuffmanReader::getBit() {

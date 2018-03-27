@@ -6,18 +6,18 @@
 
 using namespace std;
 
-void compress(const string &sourceFile);
+void compress(const string &sourceFile, int bytesPerTree);
 void decompress(const string &sourceFile);
 
 int main(int argc, char** argv) {
 
     clock_t initialTime = clock(), finalTime;
 
-    if (argc != 3 || argv[1][0] != '-' || (argv[1][1] != 'c' && argv[1][1] != 'd')) {
-        cout << "Arguments: [-c|-d] arquivo" << endl;
+    if ((argc < 3 || argc > 4) || (argv[1][1] != 'c' && argv[1][1] != 'd') || (argc == 4 && argv[1][1] != 'c') || (argc == 3 && argv[1][1] != 'd')) {
+        cout << "Arguments: [-c N |-d] arquivo" << endl;
         exit(1);
     } else if (argv[1][1] == 'c') {
-        compress(argv[2]);
+        compress(argv[3], stoi(argv[2]));
     } else if (argv[1][1] == 'd') {
         decompress(argv[2]);
     }
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void compress(const string &sourceFile) {
+void compress(const string &sourceFile, const int bytesPerTree) {
 
     // frequency and totalBytes declaration
     unsigned long frequencies[256];
@@ -55,12 +55,17 @@ void compress(const string &sourceFile) {
     inFile.seekg(0, inFile.beg);
 
     // output file
-    HuffmanWriter writer(sourceFile + ".huff", frequencies);
+    HuffmanWriter writer(sourceFile + ".huff", frequencies, bytesPerTree);
+
+    int bytesThisTree = 0;
+
+    HuffmanTree* tree = nullptr;
 
     // file compression
     while(totalSymbols > 1) {
 
-        HuffmanTree* tree = buildHuffmanTree(frequencies);
+        if(tree == nullptr)
+            tree = buildHuffmanTree(frequencies);
 
         int value = inFile.get(); // get char value from file
 
@@ -70,7 +75,12 @@ void compress(const string &sourceFile) {
         frequencies[value]--;
         if(frequencies[value] == 0) totalSymbols--;
 
-        delete tree;
+        bytesThisTree++;
+        if(bytesThisTree == bytesPerTree) {
+            delete tree;
+            tree = nullptr;
+            bytesThisTree = 0;
+        }
     }
     inFile.close();
     writer.close();
@@ -89,14 +99,21 @@ void decompress(const string &sourceFile) {
     ofstream outFile(outFileName, ofstream::binary);
 
     unsigned long (&frequencies)[256] = reader.frequencies;
+    int &bytesPerTree = reader.bytesPerTree;
+
     short totalSymbols = 0;
 
     // count number of different symbols in the source file
     for(auto& frequency : frequencies) if(frequency > 0) totalSymbols++;
 
+    int bytesThisTree = 0;
+
+    HuffmanTree* tree = nullptr;
+
     // decompress file
     while(totalSymbols > 1) {
-        HuffmanTree* tree = buildHuffmanTree(frequencies);
+        if(tree == nullptr)
+            tree = buildHuffmanTree(frequencies);
         Node* node = tree->root;
         while(!node->isLeaf()) {
             node = node->getChild(reader.getBit());
@@ -107,7 +124,14 @@ void decompress(const string &sourceFile) {
         if(frequencies[value] == 0) {
             totalSymbols--;
         }
-        delete tree;
+
+        bytesThisTree++;
+        if(bytesThisTree == bytesPerTree) {
+            delete tree;
+            tree = nullptr;
+            bytesThisTree = 0;
+        }
+
     }
 
     // search and writes the remaining symbol

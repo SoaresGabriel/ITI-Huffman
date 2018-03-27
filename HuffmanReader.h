@@ -17,6 +17,7 @@ private:
 
 public:
     unsigned long frequencies[256];
+    int bytesPerTree;
 
     explicit HuffmanReader(string fileName);
 

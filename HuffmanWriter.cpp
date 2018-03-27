@@ -4,10 +4,11 @@
 
 #include "HuffmanWriter.h"
 
-HuffmanWriter::HuffmanWriter(const string &fileName, unsigned long (&frequencies)[256]) :
+HuffmanWriter::HuffmanWriter(const string &fileName, unsigned long (&frequencies)[256], int bytesPerTree) :
         file(fileName, ofstream::binary), buffer(0), bitCount(0) {
 
     file.write((char*) &frequencies, sizeof(unsigned long) * 256);
+    file.write((char*) &bytesPerTree, sizeof(int));
 
 }
 
