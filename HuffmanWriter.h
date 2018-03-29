@@ -16,7 +16,7 @@ private:
     short bitCount;
     ofstream file;
 public:
-    HuffmanWriter(const string& fileName, unsigned long (&frequencies)[256], int bytesPerTree);
+    HuffmanWriter(const string& fileName, unsigned long (&frequencies)[256], unsigned long long bytesPerTree);
 
     void writeBit(bool bit);
 
