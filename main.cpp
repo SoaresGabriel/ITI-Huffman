@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include "HuffmanTree.h"
 #include "HuffmanReader.h"
 
@@ -13,7 +14,7 @@ int main(int argc, char** argv) {
     clock_t initialTime = clock(), finalTime;
 
     if ((argc < 3 || argc > 4) || (argv[1][1] != 'c' && argv[1][1] != 'd') || (argc == 4 && argv[1][1] != 'c') || (argc == 3 && argv[1][1] != 'd')) {
-        cout << "Arguments: [-c N |-d] arquivo" << endl;
+        cout << "Arguments: [-c N |-d] file" << endl;
         exit(1);
     } else if (argv[1][1] == 'c') {
         unsigned long long bytesPerTree = static_cast<unsigned long long>(stoi(argv[2]));
@@ -32,19 +33,17 @@ int main(int argc, char** argv) {
 
 void compress(const string &sourceFile, const unsigned long long bytesPerTree) {
 
-    // frequency and totalBytes declaration
-    unsigned long frequencies[256];
-    for (unsigned long &frequency : frequencies) frequency = 0;
-
-
     ifstream inFile(sourceFile, ifstream::in);
-
     if(!inFile.good()) {
-        cout << "Falha ao abrir o arquivo" << endl;
+        cout << "Failed to open the file!" << endl;
     }
 
-    // read file frequency and total bytes
+    // frequency and totalBytes declaration
+    unsigned long frequencies[256];
+    memset(&frequencies, 0, sizeof(unsigned long) * 256);
     short totalSymbols = 0;
+
+    // read file frequency and total bytes
     int symbol;
     while((symbol = inFile.get()) != EOF) {
         if(frequencies[symbol] == 0) totalSymbols++;
@@ -89,7 +88,7 @@ void compress(const string &sourceFile, const unsigned long long bytesPerTree) {
 
 void decompress(const string &sourceFile) {
     if(sourceFile.size() <= 5 || sourceFile.substr(sourceFile.find_last_of('.')) != ".huff") {
-        cout << "Arquivo comprimido precisa ter a extensão .huff!" << endl;
+        cout << "Invalid compressed file! (not .huff)!" << endl;
         exit(1);
     }
 
