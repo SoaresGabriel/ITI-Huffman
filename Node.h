@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <list>
+#include "HuffmanWriter.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
 
     Node* getChild(bool witch);
 
-    string getCode();
+    void writeCodeIn(HuffmanWriter &writer);
 };
 
 

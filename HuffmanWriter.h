@@ -20,8 +20,6 @@ public:
 
     void writeBit(bool bit);
 
-    void writeCode(string& code);
-
     void close();
 };
 

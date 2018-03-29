@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include "HuffmanTree.h"
-#include "HuffmanWriter.h"
 #include "HuffmanReader.h"
 
 using namespace std;
@@ -69,8 +68,7 @@ void compress(const string &sourceFile, const int bytesPerTree) {
 
         int value = inFile.get(); // get char value from file
 
-        string code = tree->leafPointers[value]->getCode();
-        writer.writeCode(code);
+        tree->leafPointers[value]->writeCodeIn(writer);
 
         frequencies[value]--;
         if(frequencies[value] == 0) totalSymbols--;

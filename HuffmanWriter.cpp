@@ -22,10 +22,6 @@ void HuffmanWriter::writeBit(bool bit) {
     }
 }
 
-void HuffmanWriter::writeCode(string& code) {
-    for(auto& c : code) writeBit(c == '1');
-}
-
 void HuffmanWriter::close() {
     if(bitCount > 0) {
         buffer = (buffer << 8 - bitCount);

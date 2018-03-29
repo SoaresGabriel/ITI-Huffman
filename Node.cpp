@@ -2,8 +2,6 @@
 // Created by gabriel on 21/03/18.
 //
 
-#include <utility>
-#include <vector>
 #include "Node.h"
 
 Node::Node(Node* leftChild, Node* rightChild) :
@@ -36,10 +34,12 @@ bool Node::isRoot() {
     return parent == nullptr;
 }
 
-string Node::getCode() {
-    if(this->isRoot()) return "";
-    string thisCode = parent->leftChild == this ? "1" : "0";
-    return parent->getCode() + thisCode;
+void Node::writeCodeIn(HuffmanWriter &writer) {
+    if (this->isRoot()) return;
+
+    this->parent->writeCodeIn(writer);
+
+    writer.writeBit(this->parent->leftChild == this);
 }
 
 Node *Node::getChild(bool witch) {
